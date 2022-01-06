@@ -40,6 +40,6 @@ I'm a Web Developer and programming enthusiast since 2016. My preferred language
   ## Related links
   
 <div>  
-  <a href="https://www.linkedin.com/in/lu%C3%ADs-henrique-silva-santos-9184641a3" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+  <a href="https://www.linkedin.com/in/luis-henrique-da-silva-santos" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
   <a href="https://gitlab.com/SrHenry" target="_blank"><img src="https://img.shields.io/badge/-GitLab-%230077B5?style=for-the-badge&logo=gitlab&logoColor=white" target="_blank"></a>
 </div>
