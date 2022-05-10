@@ -34,7 +34,7 @@ I'm a Web Developer and programming enthusiast since 2016. My preferred language
   <img align="center" alt="SrHenry-MySQL" height="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg">
   <img align="center" alt="SrHenry-Linux" height="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg">
   
-  <img align="right" alt="SrHenry-pic" height="150" style="border-radius: 150px;" src="https://cdn.discordapp.com/avatars/405026575877144577/a_3fb75a0eff17cedfaf21cfe067e303b8.gif" rounded/>
+  <img align="right" alt="SrHenry-pic" height="150" style="border-radius: 150px;" src="assets/images/88db4be9-ae19-4e2f-aa50-cd361f96f64c.gif" rounded/>
 </div>
   
   ## Related links
