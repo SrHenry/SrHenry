@@ -10,6 +10,8 @@ I'm a Web Developer and programming enthusiast since 2016. My preferred language
   <!-- <a href="https://github.com/SrHenry"> -->
   <img width="45%" src="https://github-readme-stats-srhenry.vercel.app/api?username=SrHenry&show_icons=true&theme=github_dark&include_all_commits=true&count_private=true"/>
   <img width="45%" src="https://github-readme-stats-srhenry.vercel.app/api/top-langs/?username=SrHenry&layout=compact&langs_count=7&theme=github_dark"/>
+  
+  ![trophy](https://github-profile-trophy.vercel.app/?username=SrHenry&theme=darkhub&column=6&margin-w=6&margin-h=6&no-bg=true&no-frame=true)
 </div>
 
 ## Pinned Reporitories
