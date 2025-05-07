@@ -19,6 +19,7 @@ I'm a Web Developer and programming enthusiast since 2016. My preferred language
   
   [![Readme Card](https://github-readme-stats-srhenry.vercel.app/api/pin/?username=SrHenry&repo=storage-manager&theme=github_dark)](https://github.com/SrHenry/storage-manager)
   [![Readme Card](https://github-readme-stats-srhenry.vercel.app/api/pin/?username=SrHenry&repo=type-utils&theme=github_dark)](https://github.com/SrHenry/type-utils)
+  [![Readme Card](https://github-readme-stats-srhenry.vercel.app/api/pin/?username=SrHenry&repo=sdebot&theme=github_dark)](https://github.com/SrHenry/sdebot)
 
 </div>
 
@@ -31,7 +32,7 @@ I'm a Web Developer and programming enthusiast since 2016. My preferred language
   <img align="center" alt="SrHenry-CSS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">
   <img align="center" alt="SrHenry-C#" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg">
   <img align="center" alt="SrHenry-AdonisJS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/adonisjs/adonisjs-original.svg">
-  <img align="center" alt="SrHenry-Laravel" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-plain.svg">
+  <img align="center" alt="SrHenry-Laravel" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-original.svg">
   <img align="center" alt="SrHenry-PHP" height="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg">
   <img align="center" alt="SrHenry-MySQL" height="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg">
   <img align="center" alt="SrHenry-Linux" height="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg">
@@ -39,7 +40,7 @@ I'm a Web Developer and programming enthusiast since 2016. My preferred language
   <img align="right" alt="SrHenry-pic" height="150" style="border-radius: 150px;" src="assets/images/88db4be9-ae19-4e2f-aa50-cd361f96f64c.gif" rounded/>
 </div>
   
-  ## Related links
+## Related links
   
 <div>  
   <a href="https://www.linkedin.com/in/luis-henrique-da-silva-santos" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
