@@ -42,7 +42,7 @@ Sou um Desenvolvedor Web e entusiasta da programação desde 2016. Minha linguag
     <img alt="SrHenry-MySQL" style="height: 50px;" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg">
     <img alt="SrHenry-Linux" style="height: 50px;" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg">
   </div>
-  <img alt="SrHenry-pic" height="150" style="border-radius: 150px; height: 10rem;" src="assets/images/88db4be9-ae19-4e2f-aa50-cd361f96f64c.gif" rounded/>
+  <img alt="SrHenry-pic" height="150" style="border-radius: 150px; height: 10rem;" src="assets/images/kirby.gif" rounded/>
 </div>
 
 ## Links relacionados
