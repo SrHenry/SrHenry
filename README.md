@@ -18,14 +18,17 @@ I'm a Web Developer and programming enthusiast since 2016. My preferred language
 ## Pinned Reporitories
 
 <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; gap: 3rem;">
-  <a href="https://github.com/SrHenry/storage-manager" target="_blank">
-    <img alt="Storage Manager Pinned Repo" src="https://github-readme-stats-srhenry.vercel.app/api/pin/?username=SrHenry&repo=storage-manager&theme=github_dark"/>
-  </a>
   <a href="https://github.com/SrHenry/type-utils" target="_blank">
     <img alt="Type Utils Pinned Repo" src="https://github-readme-stats-srhenry.vercel.app/api/pin/?username=SrHenry&repo=type-utils&theme=github_dark"/>
   </a>
+  <a href="https://github.com/SrHenry/yt-music-downloader" target="_blank">
+    <img alt="YouTube Music Downloader Pinned Repo" src="https://github-readme-stats-srhenry.vercel.app/api/pin/?username=SrHenry&repo=yt-music-downloader&theme=github_dark"/>
+  </a>
   <a href="https://github.com/SrHenry/sdebot" target="_blank">
     <img alt="SDEBot Pinned Repo" src="https://github-readme-stats-srhenry.vercel.app/api/pin/?username=SrHenry&repo=sdebot&theme=github_dark"/>
+  </a>
+  <a href="https://github.com/SrHenry/storage-manager" target="_blank">
+    <img alt="Storage Manager Pinned Repo" src="https://github-readme-stats-srhenry.vercel.app/api/pin/?username=SrHenry&repo=storage-manager&theme=github_dark"/>
   </a>
 </div>
 
