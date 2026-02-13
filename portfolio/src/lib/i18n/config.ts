@@ -1,20 +1,23 @@
-import { default as en } from '../../messages/en.json';
-import { default as ptBR } from '../../messages/pt-BR.json';
-
 export const locales = ['en', 'pt-BR'] as const;
-export const defaultLocale: Locale = 'en';
+export const defaultLocale = 'en';
 
 export type Locale = typeof locales[number];
 
+// Messages are imported statically
+import enMessages from '../../messages/en.json';
+import ptBRMessages from '../../messages/pt-BR.json';
+
 export const messages = {
-  en,
-  'pt-BR': ptBR,
+  en: enMessages,
+  'pt-BR': ptBRMessages,
 };
 
-export const localeNames: Record<Locale, string> = {
-  en: 'English',
-  'pt-BR': 'Português (BR)',
-};
+export function getMessages(locale: string) {
+  if (isValidLocale(locale)) {
+    return messages[locale];
+  }
+  return messages[defaultLocale];
+}
 
 export function isValidLocale(locale: string): locale is Locale {
   return locales.includes(locale as Locale);
@@ -26,7 +29,7 @@ export function normalizeLocale(rawLocale: string): Locale | null {
   // Exact match
   if (isValidLocale(normalized)) return normalized;
   
-  // Match language prefix (en-US -> en)
+  // Match language prefix (en-US -> en, pt-BR -> pt-BR)
   const [language] = normalized.split('-');
   if (language === 'en') return 'en';
   if (language === 'pt') return 'pt-BR';
