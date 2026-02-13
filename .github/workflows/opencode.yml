@@ -29,4 +29,4 @@ jobs:
               env:
                   NVIDIA_API_KEY: ${{ secrets.NVIDIA_AI_API_KEY }}
               with:
-                  model: nvidia/moonshotai/kimi-k2-thinking
+                  model: nvidia/gpt-oss-120b
