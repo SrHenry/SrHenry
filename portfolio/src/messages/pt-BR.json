@@ -1,0 +1,12 @@
+{
+  "repos": {
+    "loading": "Carregando repositórios…",
+    "noRepos": "Nenhum repositório encontrado."
+  },
+  "about": {
+    "greeting": "Oi, eu sou o SrHenry"
+  },
+  "stats": {
+    "title": "Estatísticas"
+  }
+}
