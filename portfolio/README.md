@@ -5,12 +5,14 @@ Personal portfolio website built with Next.js 16, React 19, TypeScript 5.9, and 
 ## Features
 
 - ✅ Built with Next.js 16, React 19, TypeScript 5.9, Tailwind CSS 4
+- ✅ Dynamic i18n with runtime locale switching (en/pt-BR)
 - ✅ Dark/Light theme with GitHub colors
-- ✅ Static export for GitHub Pages
+- ✅ Deployed to Vercel (full Next.js runtime)
 - ✅ Server & Client Components architecture
-- ✅ Build-time data caching
+- ✅ Real-time GitHub API integration
 - ✅ Responsive design
 - ✅ Optimized performance
+- ✅ Preview deployments for PRs
 
 ## Tech Stack
 
@@ -19,47 +21,53 @@ Personal portfolio website built with Next.js 16, React 19, TypeScript 5.9, and 
 - **TypeScript**: 5.9+
 - **Styling**: Tailwind CSS 4.x
 - **UI**: ShadCN UI components
+- **i18n**: next-intl 4.8.x (plugin + runtime)
 - **Theme**: next-themes 0.4.x
 - **Icons**: Lucide React 0.563.x
 - **Animations**: Motion (Framer Motion) 12.x
+- **Deployment**: Vercel
 
 ## Project Structure
 
 ```
-portfolio/
-├── src/                          # Source code
-│   ├── app/                      # Next.js App Router
-│   │   ├── api/                  # API routes
-│   │   ├── globals.css          # Tailwind CSS entry
-│   │   ├── layout.tsx           # Root layout
-│   │   ├── page.tsx             # Main page
-│   │   └── not-found.tsx        # 404 page
-│   ├── components/              # React components
-│   │   ├── _shared/             # Shared components
-│   │   ├── sections/            # Section components
-│   │   └── ui/                  # UI components
-│   ├── lib/                     # Utilities
-│   │   ├── client/              # Client-only utilities
-│   │   ├── server/              # Server-only utilities
-│   │   ├── constants/           # App constants
-│   │   └── i18n/                # i18n configuration
-│   ├── messages/                # Translation files (en, pt-BR)
-│   └── types/                   # TypeScript types
-├── config/                     # Root-level config files
-├── data/                       # Cache and build-time data
-├── styles/                     # Global styles
-└── out/                        # Static export output
+SrHenry/
+├── .github/workflows/          # CI/CD (GitHub Actions)
+├── portfolio/                 # Project root
+│   ├── src/                   # Source code
+│   │   ├── app/               # Next.js App Router
+│   │   │   ├── [locale]/      # Locale-aware pages (dynamic)
+│   │   │   │   └── page.tsx
+│   │   │   ├── api/           # Runtime API routes
+│   │   │   ├── globals.css
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   └── not-found.tsx
+│   │   ├── components/        # React components
+│   │   │   ├── _shared/
+│   │   │   ├── sections/      # Section components with i18n hooks
+│   │   │   └── ui/
+│   │   ├── lib/              # Utilities
+│   │   │   ├── client/
+│   │   │   ├── constants/
+│   │   │   ├── i18n/         # i18n configuration
+│   │   │   └── server/
+│   │   ├── messages/         # Translation files (en, pt-BR)
+│   │   └── types/
+│   ├── config/
+│   ├── data/
+│   ├── next.config.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── .gitignore
 ```
 
 ## Development
 
 ### Prerequisites
-
 - Node.js 20.9.0+ (recommend 24.13.1)
 - npm 10+
 
 ### Setup
-
 ```bash
 # Install dependencies
 npm install
@@ -71,99 +79,79 @@ npm run dev
 ```
 
 ### Build for Production
-
 ```bash
-# Build static site
+# Build for Vercel
 npm run build
 
-# Output will be in ./out directory
+# Output: .next/ (Vercel handles deployment)
 ```
-
-### Generate Build Cache
-
-To pre-fetch GitHub data during build:
-
-```bash
-# Set GitHub token for higher API limits
-export GITHUB_TOKEN=your_token_here
-
-# Or create .env.local
-# GITHUB=your_token_here
-
-# Build with cache
-npm run build
-```
-
-## Deployment
-
-### GitHub Pages
-
-Automatically deploys on push to `main` branch via GitHub Actions.
-
-Configuration in `.github/workflows/deploy.yml`:
-
-```yaml
-on:
-  push:
-    branches: [ main ]
-```
-
-### Manual Deployment
-
-```bash
-npm run build
-# Copy ./out directory to GitHub Pages
-```
-
-## Configuration
 
 ### Environment Variables
 
 Create `.env.local`:
-
 ```env
-# Optional: GitHub API token for higher rate limits
+# GitHub API token for higher rate limits
 GITHUB_TOKEN=ghp_your_token_here
 
-# Optional: Base path for GitHub Pages
-BASE_PATH=/
-ASSET_PREFIX=https://srhenry.github.io
+# Optional: Custom base path (for subdirectory deployments)
+# BASE_PATH=/
 ```
 
-### GitHub Data Sources
+## Deployment
 
+### Vercel (Recommended)
+
+**Automatic deployments** on push to `main` branch via GitHub Actions.
+
+**Configuration**:
+- Framework Preset: Next.js
+- Build Command: `npm run build`
+- Output Directory: `.next`
+- Install Command: `npm install`
+
+**Manual deployment**:
+```bash
+# Push to GitHub, Vercel auto-deploys
+# Or use Vercel CLI:
+npm i -g vercel
+vercel
+```
+
+### GitHub Pages (Legacy)
+For static export (no longer used), see git history for previous implementation.
+
+## Configuration
+
+### GitHub Data Sources
 The app fetches data from:
 - GitHub user stats (public repos, followers, etc.)
 - Pinned repositories (6 most recent)
 - External: GitHub Trophy API
 - Gravatar profile image
 
-### i18n
+### i18n (Internationalization)
+The app supports multiple languages using next-intl:
 
-Messages are statically loaded from `messages/` directory:
-
+**Usage in components**:
 ```typescript
-// In any component:
-import { messages } from '@/lib/i18n/config';
-const t = messages.en.about; // or messages['pt-BR'].about
+// Server Component
+import { getTranslations } from 'next-intl/server';
+const t = await getTranslations('sectionName');
+
+// Client Component
+import { useTranslations } from 'next-intl';
+const t = useTranslations('sectionName');
 ```
 
-Messages files:
-- `messages/en.json` - English translations
-- `messages/pt-BR.json` - Brazilian Portuguese translations
+**Adding translations**:
+1. Add keys to `messages/en.json` and `messages/pt-BR.json`
+2. Use auto-typing: messages['sectionName']['key']
 
-Add translations:
-
-```json
-{
-  "about": {
-    "greeting": "Hi!"
-  }
-}
-```
+**Locale files**:
+- `messages/en.json` - English (default)
+- `messages/pt-BR.json` - Brazilian Portuguese
 
 ## Browser Support
-
 - Chrome 111+
 - Edge 111+
 - Firefox 111+
@@ -172,49 +160,36 @@ Add translations:
 ## Performance
 
 ### Core Web Vitals Targets
-
 - **FCP**: < 1.5s desktop, < 2.5s mobile
 - **LCP**: < 2.5s
 - **CLS**: < 0.05
 
 ### Optimizations
-
-- Static export (no runtime)
-- Build-time data fetching
-- LocalStorage caching
+- Dynamic code splitting per locale
+- ISR (Incremental Static Regeneration) for data freshness
+- Optimized images via Next.js Image
 - Bundle size < 100KB critical
+- No blocking API calls on initial load
 
 ## Key Implementation Details
 
-### Static Export Compatibility
+### Vercel + Next.js Full Runtime
+Unlike static export, Vercel provides:
+- Node.js runtime for API routes
+- SSR for optimal performance
+- Dynamic routing with `[locale]` segments
+- Real-time data fetching
+- Edge functions
 
-For static export (GitHub Pages), we use direct message imports instead of runtime i18n libraries:
-- Messages are imported once from `messages/` directory
-- Components load messages directly using `messages.en.sectionName`
-- This eliminates next-intl runtime dependencies and config issues
-
-### Build Cache
-
-Create cache at build time with:
-```bash
-node lib/server/cache-generator.js
-```
-
-Cache stored in `data/cache/` directory.
-
-### API Routes with Static Export
-
-API routes in `app/api/repos/route.ts` use:
-```typescript
-export const dynamic = 'force-static';
-```
-
-This ensures compatibility with Next.js static export.
+### Data Caching Strategy
+- ISR for GitHub data (cache with background updates)
+- `getRequestConfig` in `src/i18n/request.ts`
+- LocalStorage caching for client-side persistence
+- Stale-while-revalidate pattern
 
 ## Breaking Changes (Next.js 16 + React 19)
 
-See ARCHITECTURE.md for detailed migration notes from Next.js 14/15 and React 18.
+See ARCHITECTURE.md for detailed migration notes.
 
 ## License
-
 MIT
