@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "SrHenry | Full-Stack Developer",
+    "description": "Portfolio of SrHenry (Luis Henrique), a full-stack web developer with backend specialization since 2016."
+  },
+  "navigation": {
+    "about": "About",
+    "stats": "GitHub Stats",
+    "repos": "Repositories",
+    "tech": "Technologies",
+    "contact": "Contact"
+  },
+  "about": {
+    "greeting": "Hi, I'm SrHenry!",
+    "role": "Full-Stack Web Developer",
+    "experience": "With Backend Specialization since 2016",
+    "summary": "Web Developer with Experience Since 2016, specializing in Backend Technologies and TypeScript."
+  },
+  "stats": {
+    "title": "GitHub Stats",
+    "repos": "Public Repos",
+    "commits": "Total Commits",
+    "prs": "Pull Requests",
+    "followers": "Followers"
+  },
+  "repos": {
+    "title": "Pinned Repositories",
+    "stars": "stars",
+    "language": "Language"
+  },
+  "tech": {
+    "title": "Technologies"
+  },
+  "trophy": {
+    "title": "GitHub Trophy"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Let's connect and build something amazing together."
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}
