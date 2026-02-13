@@ -1,12 +1,47 @@
 {
-  "repos": {
-    "loading": "Carregando repositórios…",
-    "noRepos": "Nenhum repositório encontrado."
+  "metadata": {
+    "title": "SrHenry | Desenvolvedor Full-Stack",
+    "description": "Portfólio de SrHenry (Luis Henrique), um desenvolvedor web full-stack com especialização em backend desde 2016."
+  },
+  "navigation": {
+    "about": "Sobre",
+    "stats": "Estatísticas",
+    "repos": "Repositórios",
+    "tech": "Tecnologias",
+    "contact": "Contato"
   },
   "about": {
-    "greeting": "Oi, eu sou o SrHenry"
+    "greeting": "Olá, eu sou o SrHenry!",
+    "role": "Desenvolvedor Web Full-Stack",
+    "experience": "Com Especialização em Backend desde 2016",
+    "summary": "Desenvolvedor Web com Experiência desde 2016, especializado em Tecnologias Backend e TypeScript."
   },
   "stats": {
-    "title": "Estatísticas"
+    "title": "Estatísticas do GitHub",
+    "repos": "Repositórios",
+    "commits": "Commits Totais",
+    "prs": "Pull Requests",
+    "followers": "Seguidores"
+  },
+  "repos": {
+    "title": "Repositórios Fixados",
+    "stars": "estrelas",
+    "language": "Linguagem"
+  },
+  "tech": {
+    "title": "Tecnologias"
+  },
+  "trophy": {
+    "title": "Troféus do GitHub"
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "subtitle": "Vamos nos conectar e construir algo incrível juntos."
+  },
+  "theme": {
+    "toggle": "Alternar tema",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema"
   }
 }
