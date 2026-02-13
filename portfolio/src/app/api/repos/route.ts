@@ -4,7 +4,7 @@ import path from 'path';
 import { GitHubRepo } from '@/types';
 import { CACHE_TTL } from '@/lib/constants';
 
-export const dynamic = "force-static";
+
 
 const CACHE_DIR = path.join(process.cwd(), 'data', 'cache');
 const CACHE_FILE = path.join(CACHE_DIR, 'repos.json');

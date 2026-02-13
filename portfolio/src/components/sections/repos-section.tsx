@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { GitHubRepo } from '@/types';
-import { messages } from '@/lib/i18n/config';
+import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/_shared/icon';
 import { ExternalLink } from 'lucide-react';
 
 export function ReposSection() {
-  const t = messages.en.repos;
+  const t = useTranslations('repos');
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -17,7 +17,7 @@ export function ReposSection() {
         const cached = localStorage.getItem('cache:repos');
         if (cached) {
           const { data, timestamp } = JSON.parse(cached);
-          if (Date.now() - timestamp < 24 * 60 * 60 * 1000) {
+          if (Date.now() - timestamp < 2 * 60 * 60 * 1000) {
             setRepos(data);
             setIsLoading(false);
             return;
@@ -44,9 +44,9 @@ export function ReposSection() {
     return (
       <section className="py-16 px-4 max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          {t.title}
+          {t('title')}
         </h2>
-        <div className="text-center">Loading...</div>
+        <div className="text-center">{t('loading')}</div>
       </section>
     );
   }
@@ -55,9 +55,9 @@ export function ReposSection() {
     return (
       <section className="py-16 px-4 max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          {t.title}
+          {t('title')}
         </h2>
-        <div className="text-center text-muted-foreground">No repositories found.</div>
+        <div className="text-center text-muted-foreground">{t('noRepos')}</div>
       </section>
     );
   }
@@ -65,7 +65,7 @@ export function ReposSection() {
   return (
     <section className="py-16 px-4 max-w-6xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-        {t.title}
+        {t('title')}
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -82,7 +82,7 @@ export function ReposSection() {
             </div>
             
             <p className="text-sm text-muted-foreground mb-4">
-              {repo.description || 'No description available'}
+              {repo.description || t('noDescription')}
             </p>
             
             <div className="flex items-center justify-between text-sm">

@@ -1,4 +1,4 @@
-import { messages } from '@/lib/i18n/config';
+import { getTranslations } from 'next-intl/server';
 import { Icon } from '@/components/_shared/icon';
 
 // This will be replaced with real GitHub data
@@ -9,27 +9,27 @@ const DUMMY_STATS = {
   followers: 89
 };
 
-export function StatsSection() {
-  const t = messages.en.stats;
+export async function StatsSection() {
+  const t = await getTranslations('stats');
 
   const statsItems = [
     {
-      label: t.repos,
+      label: t('repos'),
       value: DUMMY_STATS.repos,
       icon: 'github' as const,
     },
     {
-      label: t.commits,
+      label: t('commits'),
       value: DUMMY_STATS.commits,
       icon: 'git-branch' as const,
     },
     {
-      label: t.prs,
+      label: t('prs'),
       value: DUMMY_STATS.prs,
       icon: 'code' as const,
     },
     {
-      label: t.followers,
+      label: t('followers'),
       value: DUMMY_STATS.followers,
       icon: 'users' as const,
     },
@@ -38,7 +38,7 @@ export function StatsSection() {
   return (
     <section className="py-16 px-4 max-w-6xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-        {t.title}
+        {t('title')}
       </h2>
       
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

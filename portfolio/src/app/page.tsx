@@ -1,21 +1,7 @@
-import { AboutSection } from '@/components/sections/about-section';
-import { StatsSection } from '@/components/sections/stats-section';
-import { ReposSection } from '@/components/sections/repos-section';
-import { TechSection } from '@/components/sections/tech-section';
-import { TrophySection } from '@/components/sections/trophy-section';
-import { ContactSection } from '@/components/sections/contact-section';
+import { redirect } from 'next/navigation';
 
-export const dynamic = 'force-static';
-
-export default function HomePage() {
-  return (
-    <main className="min-h-screen">
-      <AboutSection />
-      <StatsSection />
-      <ReposSection />
-      <TechSection />
-      <TrophySection />
-      <ContactSection />
-    </main>
-  );
+export default function Home() {
+  // Redirect the root path to the default locale (English)
+  redirect('/en');
+  return null;
 }

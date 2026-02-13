@@ -1,8 +1,8 @@
-import { messages } from '@/lib/i18n/config';
+import { getTranslations } from 'next-intl/server';
 import { GITHUB_LINK, LINKEDIN_LINK, GITLAB_LINK, EMAIL } from '@/lib/constants';
 
-export function ContactSection() {
-  const t = messages.en.contact;
+export async function ContactSection() {
+  const t = await getTranslations('contact');
 
   const contactLinks = [
     { name: 'GitHub', url: GITHUB_LINK },
@@ -15,11 +15,11 @@ export function ContactSection() {
     <section className="py-20 px-4 max-w-4xl mx-auto">
       <div className="text-center space-y-6">
         <h2 className="text-3xl md:text-4xl font-bold">
-          {t.title}
+          {t('title')}
         </h2>
         
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          {t.subtitle}
+          {t('subtitle')}
         </p>
 
         <div className="flex flex-wrap gap-4 justify-center pt-4">

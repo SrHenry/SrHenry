@@ -1,10 +1,10 @@
-import { messages } from '@/lib/i18n/config';
+import { getTranslations } from 'next-intl/server';
 import { Icon } from '@/components/_shared/icon';
 import { GITHUB_LINK, LINKEDIN_LINK, GRAVATAR_EMAIL_HASH } from '@/lib/constants';
 import { getGravatarUrl } from '@/lib/utils/gravatar';
 
-export function AboutSection() {
-  const t = messages.en.about;
+export async function AboutSection() {
+  const t = await getTranslations('about');
 
   return (
     <section className="py-20 px-4 max-w-4xl mx-auto text-center">
@@ -19,28 +19,28 @@ export function AboutSection() {
         
         <div className="space-y-2">
           <h1 className="text-4xl md:text-5xl font-bold">
-            {t.greeting}
+            {t('greeting')}
           </h1>
           <h2 className="text-2xl md:text-3xl text-muted">
-            {t.role}
+            {t('role')}
           </h2>
           <p className="text-lg text-muted-foreground">
-            {t.experience}
+            {t('experience')}
           </p>
         </div>
 
         <p className="text-base md:text-lg max-w-2xl text-gray-700 dark:text-gray-300">
-          {t.summary}
+          {t('summary')}
         </p>
 
         <div className="flex flex-wrap gap-4 justify-center pt-4">
           <a href={GITHUB_LINK} target="_blank" rel="noopener noreferrer" 
              className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
-            GitHub
+            {t('github')}
           </a>
           <a href={LINKEDIN_LINK} target="_blank" rel="noopener noreferrer"
              className="px-6 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition-colors">
-            LinkedIn
+            {t('linkedin')}
           </a>
         </div>
       </div>

@@ -1,22 +1,27 @@
-import { messages } from '@/lib/i18n/config';
-import { Technology } from '@/types';
 import { Icon } from '@/components/_shared/icon';
 
+import type { IconName } from '@/components/_shared/icon';
+
+type Technology = {
+  name: string;
+  icon: IconName;
+  category: string;
+};
+
 const technologies: Technology[] = [
-  { name: 'TypeScript', icon: 'code', color: '#3178c6', category: 'Language' },
-  { name: 'JavaScript', icon: 'code', color: '#f7df1e', category: 'Language' },
-  { name: 'Node.js', icon: 'code', color: '#339933', category: 'Runtime' },
-  { name: 'Next.js', icon: 'code', color: '#000000', category: 'Framework' },
+  { name: 'TypeScript', icon: 'code', category: 'Language' },
+  { name: 'JavaScript', icon: 'code', category: 'Language' },
+  { name: 'Node.js', icon: 'code', category: 'Runtime' },
+  { name: 'Next.js', icon: 'code', category: 'Framework' },
 ];
 
 export function TechSection() {
-  const t = messages.en.tech;
   const categories = [...new Set(technologies.map(tech => tech.category))];
 
   return (
     <section className="py-16 px-4 max-w-6xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-        {t.title}
+        Technologies
       </h2>
       
       <div className="space-y-8">

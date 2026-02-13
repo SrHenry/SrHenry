@@ -1,4 +1,4 @@
-import { messages } from '@/lib/i18n/config';
+import { getTranslations } from 'next-intl/server';
 import { Icon } from '@/components/_shared/icon';
 
 const GITHUB_TROPHY_BASE_URL = 'https://github-profile-trophy.vercel.app/?username=';
@@ -11,13 +11,13 @@ const DUMMY_TROPHIES = [
   { count: 15, label: 'Stars' },
 ];
 
-export function TrophySection() {
-  const t = messages.en.trophy;
+export async function TrophySection() {
+  const t = await getTranslations('trophy');
 
   return (
     <section className="py-16 px-4 max-w-6xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-        {t.title}
+        {t('title')}
       </h2>
       
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -32,7 +32,7 @@ export function TrophySection() {
       </div>
       
       <div className="mt-8 text-center text-sm text-muted-foreground">
-        GitHub Trophies showcase various achievements and contributions
+        {t('description')}
       </div>
     </section>
   );
