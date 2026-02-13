@@ -29,4 +29,5 @@ jobs:
               env:
                   NVIDIA_API_KEY: ${{ secrets.NVIDIA_AI_API_KEY }}
               with:
-                  model: nvidia/gpt-oss-120b
+                  model: nvidia/openai/gpt-oss-120b
+    variant: high
