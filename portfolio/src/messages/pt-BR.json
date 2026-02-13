@@ -12,6 +12,8 @@
   },
   "about": {
     "greeting": "Olá, eu sou o SrHenry!",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
     "role": "Desenvolvedor Web Full-Stack",
     "experience": "Com Especialização em Backend desde 2016",
     "summary": "Desenvolvedor Web com Experiência desde 2016, especializado em Tecnologias Backend e TypeScript."
@@ -26,13 +28,17 @@
   "repos": {
     "title": "Repositórios Fixados",
     "stars": "estrelas",
-    "language": "Linguagem"
+    "language": "Linguagem",
+    "loading": "Carregando repositórios...",
+    "noRepos": "Nenhum repositório encontrado.",
+    "noDescription": "Sem descrição."
   },
   "tech": {
     "title": "Tecnologias"
   },
   "trophy": {
-    "title": "Troféus do GitHub"
+    "title": "Troféus do GitHub",
+    "description": "Estes são os troféus do GitHub conquistados.",
   },
   "contact": {
     "title": "Entre em Contato",

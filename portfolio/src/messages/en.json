@@ -11,6 +11,8 @@
     "contact": "Contact"
   },
   "about": {
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
     "greeting": "Hi, I'm SrHenry!",
     "role": "Full-Stack Web Developer",
     "experience": "With Backend Specialization since 2016",
@@ -26,13 +28,17 @@
   "repos": {
     "title": "Pinned Repositories",
     "stars": "stars",
-    "language": "Language"
+    "language": "Language",
+    "loading": "Loading repositories...",
+    "noRepos": "No repositories found.",
+    "noDescription": "No description."
   },
   "tech": {
     "title": "Technologies"
   },
   "trophy": {
-    "title": "GitHub Trophy"
+    "title": "GitHub Trophy",
+    "description": "These are the GitHub trophies earned.",
   },
   "contact": {
     "title": "Get in Touch",
