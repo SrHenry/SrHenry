@@ -12,7 +12,7 @@ export const metadata = {
   description: 'Full-stack web developer with backend specialization since 2016 - Portfolio',
 };
 
-export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: { locale: string } }) {
+export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const messages = locale === 'pt-BR' ? ptBRMessages : enMessages;
   return (
