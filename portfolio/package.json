@@ -14,7 +14,7 @@
     "type-check": "tsc --noEmit",
     "generate-cache": "npx tsx src/lib/server/cache-generator.ts",
     "prebuild": "npx tsx src/lib/server/cache-generator.ts || true",
-    "prepare": "cd .. && husky"
+    "prepare": "cd .. && husky || true"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
