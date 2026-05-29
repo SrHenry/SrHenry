@@ -1,20 +1,29 @@
-import { AboutSection } from '@/components/sections/about-section';
-import { StatsSection } from '@/components/sections/stats-section';
-import { ReposSection } from '@/components/sections/repos-section';
-import { TechSection } from '@/components/sections/tech-section';
-import { TrophySection } from '@/components/sections/trophy-section';
-import { ContactSection } from '@/components/sections/contact-section';
+import { AboutSection } from "@/components/sections/about-section";
+import { ContactSection } from "@/components/sections/contact-section";
+import { ReposSection } from "@/components/sections/repos-section";
+import { StatsSection } from "@/components/sections/stats-section";
+import { TechSection } from "@/components/sections/tech-section";
 
-export default function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+
   return (
-    <main className="min-h-screen">
-      <AboutSection />
-      <StatsSection />
-      <ReposSection />
-      <TechSection />
-      <TrophySection />
-      <ContactSection />
-    </main>
+    <div className="flex flex-col gap-16">
+      <div id="about">
+        <AboutSection />
+      </div>
+      <div id="stats">
+        <StatsSection />
+      </div>
+      <div id="repos">
+        <ReposSection />
+      </div>
+      <div id="tech">
+        <TechSection locale={locale} />
+      </div>
+      <div id="contact">
+        <ContactSection />
+      </div>
+    </div>
   );
 }
-

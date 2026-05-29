@@ -5,9 +5,9 @@
   },
   "navigation": {
     "about": "About",
-    "stats": "GitHub Stats",
-    "repos": "Repositories",
-    "tech": "Technologies",
+    "stats": "Stats",
+    "repos": "Repos",
+    "tech": "Tech",
     "contact": "Contact"
   },
   "about": {
@@ -15,15 +15,17 @@
     "linkedin": "LinkedIn",
     "greeting": "Hi, I'm SrHenry!",
     "role": "Full-Stack Web Developer",
-    "experience": "With Backend Specialization since 2016",
+    "experience": "Backend Specialist and DevOps/Infra experience",
     "summary": "Web Developer with Experience Since 2016, specializing in Backend Technologies and TypeScript."
   },
   "stats": {
     "title": "GitHub Stats",
     "repos": "Public Repos",
-    "commits": "Total Commits",
-    "prs": "Pull Requests",
-    "followers": "Followers"
+    "stars": "Total Stars",
+    "followers": "Followers",
+    "following": "Following",
+    "gists": "Gists",
+    "age": "Years on GitHub"
   },
   "repos": {
     "title": "Pinned Repositories",
@@ -34,11 +36,12 @@
     "noDescription": "No description."
   },
   "tech": {
-    "title": "Technologies"
-  },
-  "trophy": {
-    "title": "GitHub Trophy",
-    "description": "These are the GitHub trophies earned."
+    "title": "Technologies",
+    "languages": "Languages",
+    "runtime": "Runtime",
+    "frameworks": "Frameworks",
+    "databases": "Databases",
+    "tools": "Tools"
   },
   "contact": {
     "title": "Get in Touch",

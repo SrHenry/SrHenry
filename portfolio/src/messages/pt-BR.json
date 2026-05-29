@@ -5,9 +5,9 @@
   },
   "navigation": {
     "about": "Sobre",
-    "stats": "Estatísticas",
-    "repos": "Repositórios",
-    "tech": "Tecnologias",
+    "stats": "Stats",
+    "repos": "Repos",
+    "tech": "Tech",
     "contact": "Contato"
   },
   "about": {
@@ -15,15 +15,17 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "role": "Desenvolvedor Web Full-Stack",
-    "experience": "Com Especialização em Backend desde 2016",
+    "experience": "Especialista em Backend e DevOps/Infra",
     "summary": "Desenvolvedor Web com Experiência desde 2016, especializado em Tecnologias Backend e TypeScript."
   },
   "stats": {
     "title": "Estatísticas do GitHub",
-    "repos": "Repositórios",
-    "commits": "Commits Totais",
-    "prs": "Pull Requests",
-    "followers": "Seguidores"
+    "repos": "Repositórios Públicos",
+    "stars": "Estrelas Totais",
+    "followers": "Seguidores",
+    "following": "Seguindo",
+    "gists": "Gists",
+    "age": "Anos no GitHub"
   },
   "repos": {
     "title": "Repositórios Fixados",
@@ -34,11 +36,12 @@
     "noDescription": "Sem descrição."
   },
   "tech": {
-    "title": "Tecnologias"
-  },
-  "trophy": {
-    "title": "Troféus do GitHub",
-    "description": "Estes são os troféus do GitHub conquistados."
+    "title": "Tecnologias",
+    "languages": "Linguagens",
+    "runtime": "Runtime",
+    "frameworks": "Frameworks",
+    "databases": "Bancos de Dados",
+    "tools": "Ferramentas"
   },
   "contact": {
     "title": "Entre em Contato",

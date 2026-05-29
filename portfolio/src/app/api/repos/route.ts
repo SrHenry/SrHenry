@@ -1,13 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
-import { GitHubRepo } from '@/types';
-import { CACHE_TTL } from '@/lib/constants';
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import { NextResponse } from "next/server";
+import type { GitHubRepo } from "@/types";
 
+export const dynamic = "force-static";
 
-
-const CACHE_DIR = path.join(process.cwd(), 'data', 'cache');
-const CACHE_FILE = path.join(CACHE_DIR, 'repos.json');
+const CACHE_DIR = path.join(process.cwd(), "data", "cache");
+const CACHE_FILE = path.join(CACHE_DIR, "repos.json");
 
 interface CacheEntry {
   data: GitHubRepo[];
@@ -15,25 +14,17 @@ interface CacheEntry {
   ttl: number;
 }
 
-export async function GET(request: NextRequest) {
+async function readBuildCache(): Promise<GitHubRepo[]> {
   try {
-    try {
-      const cacheContent = await fs.readFile(CACHE_FILE, 'utf-8');
-      const cacheEntry: CacheEntry = JSON.parse(cacheContent);
-      
-      if (Date.now() - cacheEntry.timestamp < cacheEntry.ttl) {
-        return NextResponse.json(cacheEntry.data);
-      }
-    } catch (error) {
-      console.log('Cache miss for repos');
-    }
-
-    return NextResponse.json([]);
-  } catch (error) {
-    console.error('Error in repos API route:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch repositories' },
-      { status: 500 }
-    );
+    const cacheContent = await fs.readFile(CACHE_FILE, "utf-8");
+    const cacheEntry: CacheEntry = JSON.parse(cacheContent);
+    return cacheEntry.data;
+  } catch {
+    return [];
   }
+}
+
+export async function GET() {
+  const repos = await readBuildCache();
+  return NextResponse.json(repos);
 }

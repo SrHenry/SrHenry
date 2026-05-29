@@ -1,6 +1,47 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import { CACHE_TTL } from "@/lib/constants";
 
-export function useCache<T>(key: string, fetchFn: () => Promise<T>, ttl: number = 2 * 60 * 60 * 1000) {
+interface CacheEntry<T> {
+  data: T;
+  timestamp: number;
+}
+
+function readCache<T>(key: string, ttl: number): T | null {
+  const raw = localStorage.getItem(key);
+  if (!raw) return null;
+  const entry: CacheEntry<T> = JSON.parse(raw);
+  return Date.now() - entry.timestamp < ttl ? entry.data : null;
+}
+
+function writeCache<T>(key: string, data: T): void {
+  localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }));
+}
+
+function handleSuccess<T>(
+  result: T,
+  key: string,
+  isMounted: boolean,
+  setData: (d: T | null) => void,
+  setIsLoading: (v: boolean) => void,
+) {
+  if (!isMounted) return;
+  setData(result);
+  setIsLoading(false);
+  writeCache(key, result);
+}
+
+function handleError(
+  err: unknown,
+  isMounted: boolean,
+  setError: (e: Error | null) => void,
+  setIsLoading: (v: boolean) => void,
+) {
+  if (!isMounted) return;
+  setError(err as Error);
+  setIsLoading(false);
+}
+
+export function useCache<T>(key: string, fetchFn: () => Promise<T>, ttl: number = CACHE_TTL) {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -8,40 +49,21 @@ export function useCache<T>(key: string, fetchFn: () => Promise<T>, ttl: number 
   useEffect(() => {
     let isMounted = true;
 
-    const getCachedData = async () => {
-      try {
-        const cached = localStorage.getItem(key);
-        if (cached) {
-          const { data: cachedData, timestamp } = JSON.parse(cached);
-          if (Date.now() - timestamp < ttl) {
-            if (isMounted) {
-              setData(cachedData);
-              setIsLoading(false);
-            }
-            return;
-          }
-        }
+    const cached = readCache<T>(key, ttl);
+    if (cached !== null) {
+      setData(cached);
+      setIsLoading(false);
+      return;
+    }
 
-        const freshData = await fetchFn();
-        if (isMounted) {
-          setData(freshData);
-          setIsLoading(false);
-          localStorage.setItem(key, JSON.stringify({ data: freshData, timestamp: Date.now() }));
-        }
-      } catch (err) {
-        if (isMounted) {
-          setError(err as Error);
-          setIsLoading(false);
-        }
-      }
-    };
-
-    getCachedData();
+    fetchFn()
+      .then((fresh) => handleSuccess(fresh, key, isMounted, setData, setIsLoading))
+      .catch((err) => handleError(err, isMounted, setError, setIsLoading));
 
     return () => {
       isMounted = false;
     };
-  }, [key, fetchFn, ttl]);
+  }, [key, ttl, fetchFn]);
 
   return { data, isLoading, error };
 }
@@ -51,8 +73,8 @@ export function clearCache(key: string) {
 }
 
 export function clearAllCache() {
-  Object.keys(localStorage).forEach(key => {
-    if (key.startsWith('cache:')) {
+  Object.keys(localStorage).forEach((key) => {
+    if (key.startsWith("cache:")) {
       localStorage.removeItem(key);
     }
   });

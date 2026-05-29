@@ -1,109 +1,87 @@
-'use client';
+import { ExternalLink, Star } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { Card } from "@/components/ui/card";
+import { Carousel } from "@/components/ui/carousel";
+import { AnimatedSection } from "@/components/widgets/animated-section";
+import { fetchPinnedRepos } from "@/lib/server/github-graphql";
+import type { GitHubRepo } from "@/types";
 
-import { useEffect, useState } from 'react';
-import { GitHubRepo } from '@/types';
-import { useTranslations } from 'next-intl';
-import { Icon } from '@/components/_shared/icon';
-import { ExternalLink } from 'lucide-react';
-
-export function ReposSection() {
-  const t = useTranslations('repos');
-  const [repos, setRepos] = useState<GitHubRepo[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchRepos() {
-      try {
-        const cached = localStorage.getItem('cache:repos');
-        if (cached) {
-          const { data, timestamp } = JSON.parse(cached);
-          if (Date.now() - timestamp < 2 * 60 * 60 * 1000) {
-            setRepos(data);
-            setIsLoading(false);
-            return;
-          }
-        }
-
-        const response = await fetch('/api/repos');
-        if (response.ok) {
-          const data = await response.json();
-          setRepos(data);
-          localStorage.setItem('cache:repos', JSON.stringify({ data, timestamp: Date.now() }));
-        }
-      } catch (error) {
-        console.error('Failed to fetch repos:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchRepos();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <section className="py-16 px-4 max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          {t('title')}
-        </h2>
-        <div className="text-center">{t('loading')}</div>
-      </section>
-    );
+async function readBuildCache(): Promise<GitHubRepo[]> {
+  try {
+    const fs = await import("node:fs/promises");
+    const path = await import("node:path");
+    const cacheFile = path.join(process.cwd(), "data", "cache", "repos.json");
+    const raw = await fs.readFile(cacheFile, "utf-8");
+    const entry = JSON.parse(raw);
+    return entry.data ?? [];
+  } catch {
+    return [];
   }
+}
 
-  if (!repos || repos.length === 0) {
-    return (
-      <section className="py-16 px-4 max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          {t('title')}
-        </h2>
-        <div className="text-center text-muted-foreground">{t('noRepos')}</div>
-      </section>
-    );
+async function getRepos(): Promise<GitHubRepo[]> {
+  try {
+    return await fetchPinnedRepos();
+  } catch {
+    return readBuildCache();
   }
+}
+
+export async function ReposSection() {
+  const t = await getTranslations("repos");
+  const repos = await getRepos();
 
   return (
-    <section className="py-16 px-4 max-w-6xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-        {t('title')}
-      </h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {repos.map((repo) => (
-          <div key={repo.name} className="bg-card rounded-lg p-6 shadow-sm border border-border hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between mb-2">
-              <h3 className="text-lg font-semibold truncate">{repo.name}</h3>
-              {repo.html_url && (
-                <a href={repo.html_url} target="_blank" rel="noopener noreferrer"
-                   className="text-muted-foreground hover:text-primary ml-2">
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              )}
-            </div>
-            
-            <p className="text-sm text-muted-foreground mb-4">
-              {repo.description || t('noDescription')}
-            </p>
-            
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-4">
-                {repo.language && (
-                  <span className="flex items-center gap-1">
-                    <span className="inline-block w-2 h-2 bg-blue-500 rounded-full"></span>
-                    {repo.language}
-                  </span>
-                )}
-                {repo.stargazers_count > 0 && (
-                  <span className="flex items-center gap-1">
-                    <Icon name="star" className="w-3 h-3" />
-                    {repo.stargazers_count}
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+    <AnimatedSection>
+      <section className="py-12">
+        <h2 className="mb-10 text-center text-3xl font-bold md:text-4xl">{t("title")}</h2>
+
+        {repos.length === 0 ? (
+          <p className="text-center text-muted-foreground">{t("noRepos")}</p>
+        ) : (
+          <Carousel itemClassName="w-[320px] sm:w-[360px]" className="max-w-full">
+            {repos.map((repo) => (
+              <Card key={repo.name} className="p-6 transition-shadow hover:shadow-md h-full">
+                <div className="mb-2 flex items-start justify-between">
+                  <h3 className="truncate text-lg font-semibold">{repo.name}</h3>
+                  {repo.html_url && (
+                    <a
+                      href={repo.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-2 text-muted-foreground hover:text-primary"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  )}
+                </div>
+
+                <p className="mb-4 text-sm text-muted-foreground">
+                  {repo.description || t("noDescription")}
+                </p>
+
+                <div className="flex items-center gap-4 text-sm">
+                  {repo.language && (
+                    <span className="flex items-center gap-1.5">
+                      <span
+                        className="inline-block h-2 w-2 rounded-full"
+                        style={{ backgroundColor: repo.languageColor || "hsl(var(--primary))" }}
+                      />
+                      {repo.language}
+                    </span>
+                  )}
+                  {repo.stargazers_count > 0 && (
+                    <span className="flex items-center gap-1">
+                      <Star className="h-3 w-3" />
+                      {repo.stargazers_count}
+                    </span>
+                  )}
+                </div>
+              </Card>
+            ))}
+          </Carousel>
+        )}
+      </section>
+    </AnimatedSection>
   );
 }

@@ -1,0 +1,1 @@
+cd portfolio && npx biome check --staged --write

@@ -40,4 +40,4 @@ Thumbs.db
 *.pem
 *.tsbuildinfo
 next-env.d.ts
-src/data/cache/
+/data/cache/

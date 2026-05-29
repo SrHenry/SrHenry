@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "es2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -25,24 +21,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/components/*": [
-        "./src/components/*"
-      ],
-      "@/lib/*": [
-        "./src/lib/*"
-      ],
-      "@/types/*": [
-        "./src/types/*"
-      ],
-      "@/messages/*": [
-        "./src/messages/*"
-      ],
-      "@/config/*": [
-        "./config/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
@@ -52,7 +31,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
