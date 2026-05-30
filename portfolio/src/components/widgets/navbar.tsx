@@ -1,11 +1,13 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SiGithub } from "react-icons/si";
+import { NavIndicator } from "@/components/widgets/navbar-indicator";
+import { NavbarMobile } from "@/components/widgets/navbar-mobile";
 import { ThemeToggle } from "@/components/widgets/theme-toggle";
 import { routing } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 const sections = [
   { key: "about", href: "#about" },
@@ -15,18 +17,63 @@ const sections = [
   { key: "contact", href: "#contact" },
 ] as const;
 
+const sectionIds = sections.map((s) => s.href.replace("#", ""));
+
+function useActiveSection(ids: string[]): string {
+  const [active, setActive] = useState(ids[0]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const intersecting = entries.filter((e) => e.isIntersecting);
+        if (intersecting.length > 0) {
+          const best = intersecting.reduce((a, b) =>
+            a.intersectionRatio > b.intersectionRatio ? a : b,
+          );
+          setActive(best.target.id);
+        }
+      },
+      {
+        rootMargin: "-40% 0px -55% 0px",
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      },
+    );
+
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+
+    if (window.location.hash) {
+      const hashId = window.location.hash.replace("#", "");
+      if (ids.includes(hashId)) setActive(hashId);
+    }
+
+    return () => observer.disconnect();
+  }, [ids]);
+
+  return active;
+}
+
 export function Navbar() {
   const t = useTranslations("navigation");
   const locale = useLocale();
   const otherLocale = routing.locales.find((l) => l !== locale) ?? routing.defaultLocale;
   const otherLabel = locale === "en" ? "PT" : "EN";
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const activeSection = useActiveSection(sectionIds);
+
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const id = href.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   return (
     <>
       {/* Desktop: floating centered pill */}
       <div className="fixed top-4 left-1/2 z-50 hidden -translate-x-1/2 md:block">
-        <nav className="flex items-center gap-1 rounded-2xl border border-white/20 bg-background/60 px-2 py-2 shadow-lg shadow-black/5 backdrop-blur-xl dark:border-white/10 dark:shadow-black/20">
+        <nav className="flex items-center gap-1 rounded-2xl border border-white/20 glass px-2 py-2 dark:border-white/10">
           <a
             href={`/${locale}`}
             className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-bold text-foreground transition-colors hover:bg-foreground/5"
@@ -41,9 +88,17 @@ export function Navbar() {
             <a
               key={key}
               href={href}
-              className="rounded-xl px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+              onClick={(e) => handleNavClick(e, href)}
+              className={cn(
+                "relative rounded-xl px-3 py-1.5 text-sm font-medium transition-colors",
+                activeSection === key
+                  ? "text-foreground font-semibold"
+                  : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
+              )}
+              aria-current={activeSection === key ? "true" : undefined}
             >
-              {t(key)}
+              {activeSection === key && <NavIndicator />}
+              <span className="relative z-10">{t(key)}</span>
             </a>
           ))}
 
@@ -60,63 +115,8 @@ export function Navbar() {
         </nav>
       </div>
 
-      {/* Mobile: bottom floating pill bar */}
-      <div className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 md:hidden">
-        <nav className="flex items-center justify-between rounded-2xl border border-white/20 bg-background/60 px-3 py-2 shadow-lg shadow-black/5 backdrop-blur-xl dark:border-white/10 dark:shadow-black/20">
-          <a href={`/${locale}`} className="flex items-center gap-1.5 font-bold text-foreground">
-            <SiGithub className="h-5 w-5" />
-          </a>
-
-          <div className="flex items-center gap-1">
-            {sections.slice(0, 4).map(({ key, href }) => (
-              <a
-                key={key}
-                href={href}
-                className="rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
-              >
-                {t(key)}
-              </a>
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </nav>
-
-        {/* Mobile expanded menu */}
-        {mobileOpen && (
-          <div className="mt-2 rounded-2xl border border-white/20 bg-background/60 p-3 shadow-lg shadow-black/5 backdrop-blur-xl dark:border-white/10 dark:shadow-black/20">
-            <div className="flex flex-col gap-1">
-              {sections.map(({ key, href }) => (
-                <a
-                  key={key}
-                  href={href}
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
-                >
-                  {t(key)}
-                </a>
-              ))}
-              <div className="my-1 h-px bg-border" />
-              <div className="flex items-center justify-between px-3">
-                <a
-                  href={`/${otherLocale}`}
-                  className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
-                >
-                  {otherLabel}
-                </a>
-                <ThemeToggle />
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+      {/* Mobile: delegated to NavbarMobile */}
+      <NavbarMobile activeSection={activeSection} />
     </>
   );
 }
