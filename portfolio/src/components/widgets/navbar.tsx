@@ -95,9 +95,9 @@ export function Navbar() {
                   ? "text-foreground font-semibold"
                   : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
               )}
-              aria-current={activeSection === key ? "true" : undefined}
+              aria-current={activeSection === key ? "location" : undefined}
             >
-              {activeSection === key && <NavIndicator />}
+              {activeSection === key && <NavIndicator scope="desktop" />}
               <span className="relative z-10">{t(key)}</span>
             </a>
           ))}
