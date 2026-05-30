@@ -39,9 +39,14 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
   const navRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const barHeightRef = useRef(56);
+  const closingFromNav = useRef(false);
 
   const handleBlur = useCallback(() => {
     requestAnimationFrame(() => {
+      if (closingFromNav.current) {
+        closingFromNav.current = false;
+        return;
+      }
       if (!navRef.current?.contains(document.activeElement)) {
         setMobileOpen(false);
       }
@@ -50,6 +55,7 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    closingFromNav.current = true;
     const id = href.replace("#", "");
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
