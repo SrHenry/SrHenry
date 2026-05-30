@@ -48,6 +48,9 @@
     "title": "Entre em Contato",
     "subtitle": "Vamos nos conectar e construir algo incrível juntos."
   },
+  "locale": {
+    "switchLocale": "Trocar idioma"
+  },
   "theme": {
     "toggle": "Alternar tema",
     "light": "Claro",

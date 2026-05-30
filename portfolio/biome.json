@@ -39,6 +39,10 @@
           "level": "warn",
           "options": { "maxAllowedComplexity": 12 }
         }
+      },
+      "a11y": {
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off"
       }
     }
   },

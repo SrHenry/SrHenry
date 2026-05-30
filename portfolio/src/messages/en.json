@@ -48,6 +48,9 @@
     "title": "Get in Touch",
     "subtitle": "Let's connect and build something amazing together."
   },
+  "locale": {
+    "switchLocale": "Switch language"
+  },
   "theme": {
     "toggle": "Toggle theme",
     "light": "Light",

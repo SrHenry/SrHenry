@@ -26,6 +26,11 @@ const sections = [
   { key: "contact", href: "#contact" },
 ] as const;
 
+const localeLabels: Record<string, string> = {
+  en: "EN",
+  "pt-BR": "PT",
+};
+
 interface NavbarMobileProps {
   activeSection: string;
 }
@@ -34,7 +39,6 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
   const t = useTranslations("navigation");
   const locale = useLocale();
   const otherLocale = routing.locales.find((l) => l !== locale) ?? routing.defaultLocale;
-  const otherLabel = locale === "en" ? "PT" : "EN";
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -53,9 +57,18 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
     });
   }, []);
 
-  const handleNavClick = useCallback(() => {
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     closingFromNav.current = true;
-    setMobileOpen(false);
+    const href = e.currentTarget.getAttribute("href") ?? "";
+    const id = href.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => setMobileOpen(false), 300);
+    } else {
+      setMobileOpen(false);
+    }
   }, []);
 
   const handleOpen = useCallback(() => {
@@ -117,7 +130,7 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
                   className={cn(
                     "relative rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                     activeSection === key
-                      ? "text-foreground font-semibold"
+                      ? "text-primary font-semibold"
                       : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
                   )}
                   variants={{
@@ -134,7 +147,7 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
               <div className="my-1 h-px bg-border" />
 
               <motion.div
-                className="flex items-center justify-between px-3"
+                className="flex items-center justify-between px-1 py-1"
                 variants={{
                   hidden: { opacity: 0, x: -8 },
                   visible: { opacity: 1, x: 0 },
@@ -142,9 +155,9 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
               >
                 <a
                   href={`/${otherLocale}`}
-                  className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+                  className="rounded-xl px-3 py-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
                 >
-                  {otherLabel}
+                  {localeLabels[otherLocale] ?? otherLocale}
                 </a>
                 <ThemeToggle />
               </motion.div>
@@ -157,7 +170,7 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
             className="flex items-center justify-between rounded-2xl border border-white/20 glass px-3 py-2 dark:border-white/10"
           >
             <a href={`/${locale}`} className="flex items-center gap-1.5 font-bold text-foreground">
-              <SiGithub className="h-5 w-5" />
+              <SiGithub className="h-6 w-6" />
             </a>
 
             <div className="flex items-center gap-1">
@@ -169,15 +182,15 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
                     href={href}
                     onClick={handleNavClick}
                     className={cn(
-                      "relative rounded-lg px-2 py-1.5 transition-colors",
+                      "relative rounded-lg px-2.5 py-2 transition-colors",
                       activeSection === key
-                        ? "text-foreground"
+                        ? "text-primary"
                         : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
                     )}
                     aria-current={activeSection === key ? "location" : undefined}
                   >
                     {activeSection === key && <NavIndicator scope="mobile" />}
-                    <Icon className="relative z-10 h-4 w-4" />
+                    <Icon className="relative z-10 h-5 w-5" />
                   </a>
                 );
               })}

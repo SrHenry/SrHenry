@@ -3,10 +3,10 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { SiGithub } from "react-icons/si";
+import { LocaleSwitcher } from "@/components/widgets/locale-switcher";
 import { NavIndicator } from "@/components/widgets/navbar-indicator";
 import { NavbarMobile } from "@/components/widgets/navbar-mobile";
 import { ThemeToggle } from "@/components/widgets/theme-toggle";
-import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 const sections = [
@@ -58,8 +58,6 @@ function useActiveSection(ids: string[]): string {
 export function Navbar() {
   const t = useTranslations("navigation");
   const locale = useLocale();
-  const otherLocale = routing.locales.find((l) => l !== locale) ?? routing.defaultLocale;
-  const otherLabel = locale === "en" ? "PT" : "EN";
   const activeSection = useActiveSection(sectionIds);
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -73,8 +71,8 @@ export function Navbar() {
 
   return (
     <>
-      {/* Desktop: floating centered pill */}
-      <div className="fixed top-4 left-1/2 z-50 hidden -translate-x-1/2 md:block">
+      {/* Desktop: floating centered pill + side islands */}
+      <div className="fixed top-4 left-1/2 z-50 hidden -translate-x-1/2 md:flex md:items-start md:gap-2">
         <nav className="flex items-center gap-1 rounded-2xl border border-white/20 glass px-2 py-2 dark:border-white/10">
           <a
             href={`/${locale}`}
@@ -94,7 +92,7 @@ export function Navbar() {
               className={cn(
                 "relative rounded-xl px-3 py-1.5 text-sm font-medium transition-colors",
                 activeSection === key
-                  ? "text-foreground font-semibold"
+                  ? "text-primary font-semibold"
                   : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
               )}
               aria-current={activeSection === key ? "location" : undefined}
@@ -103,18 +101,10 @@ export function Navbar() {
               <span className="relative z-10">{t(key)}</span>
             </a>
           ))}
-
-          <div className="mx-1 h-5 w-px bg-border" />
-
-          <a
-            href={`/${otherLocale}`}
-            className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
-          >
-            {otherLabel}
-          </a>
-
-          <ThemeToggle />
         </nav>
+
+        <LocaleSwitcher className="h-full self-center" />
+        <ThemeToggle className="h-full" />
       </div>
 
       {/* Mobile: delegated to NavbarMobile */}
