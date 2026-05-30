@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:static": "BUILD_TARGET=static next build",
+    "build:static": "BUILD_TARGET=static npx tsx src/lib/server/static-generator.ts || true && BUILD_TARGET=static next build",
     "start": "next start",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
