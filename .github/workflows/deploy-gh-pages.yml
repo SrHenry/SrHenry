@@ -33,12 +33,12 @@ jobs:
         working-directory: portfolio
         run: npm ci
 
-    - name: Build static site
-      working-directory: portfolio
-      run: npm run build:static
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BUILD_TARGET: static
+      - name: Build static site
+        working-directory: portfolio
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUILD_TARGET: static
+        run: npm run build:static
 
       - name: Upload artifact for deployment
         uses: actions/upload-pages-artifact@v5
