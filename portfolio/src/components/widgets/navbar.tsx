@@ -62,8 +62,10 @@ export function Navbar() {
   const otherLabel = locale === "en" ? "PT" : "EN";
   const activeSection = useActiveSection(sectionIds);
 
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    const href = e.currentTarget.getAttribute("href");
+    if (!href) return;
     const id = href.replace("#", "");
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -88,7 +90,7 @@ export function Navbar() {
             <a
               key={key}
               href={href}
-              onClick={(e) => handleNavClick(e, href)}
+              onClick={handleNavClick}
               className={cn(
                 "relative rounded-xl px-3 py-1.5 text-sm font-medium transition-colors",
                 activeSection === key

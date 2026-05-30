@@ -53,12 +53,8 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
     });
   }, []);
 
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleNavClick = useCallback(() => {
     closingFromNav.current = true;
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
   }, []);
 
@@ -117,7 +113,7 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
                 <motion.a
                   key={key}
                   href={href}
-                  onClick={(e) => handleNavClick(e, href)}
+                  onClick={handleNavClick}
                   className={cn(
                     "relative rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                     activeSection === key
@@ -171,7 +167,7 @@ export function NavbarMobile({ activeSection }: NavbarMobileProps) {
                   <a
                     key={key}
                     href={href}
-                    onClick={(e) => handleNavClick(e, href)}
+                    onClick={handleNavClick}
                     className={cn(
                       "relative rounded-lg px-2 py-1.5 transition-colors",
                       activeSection === key
